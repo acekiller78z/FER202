@@ -1,0 +1,536 @@
+/* Import Google Fonts */
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap');
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  font-family: 'Poppins', sans-serif;
+  background: linear-gradient(-45deg, #667eea, #764ba2, #56C596, #1F2F98);
+  background-size: 400% 400%;
+  animation: gradientShift 15s ease infinite;
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+@keyframes gradientShift {
+  0% { background-position: 0% 50%; }
+  50% { background-position: 100% 50%; }
+  100% { background-position: 0% 50%; }
+}
+
+.quiz-app {
+  max-width: 700px;
+  width: 90%;
+  margin: 20px;
+  position: relative;
+}
+
+/* Question Container */
+.question {
+  background: #0d1117;
+  color: #ffffff;
+  padding: 40px;
+  border-radius: 20px;
+  box-shadow: 0 0 15px rgba(0, 255, 255, 0.2);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  position: relative;
+  overflow: hidden;
+  animation: slideIn 0.6s ease-out;
+}
+
+.question span {
+  position: absolute;
+  display: block;
+  z-index: 2;
+}
+
+.question span:nth-child(1) {
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 2px;
+  background: #2E8B57;
+}
+.question span:nth-child(2) {
+  top: 0;
+  right: 0;
+  width: 2px;
+  height: 100%;
+  background: #a78bfa;
+}
+.question span:nth-child(3) {
+  bottom: 0;
+  right: 0;
+  width: 100%;
+  height: 2px;
+  background: #f6ad55;
+}
+.question span:nth-child(4) {
+  bottom: 0;
+  left: 0;
+  width: 2px;
+  height: 100%;
+  background: #f687b3;
+}
+
+@keyframes slideIn {
+  from {
+    opacity: 0;
+    transform: translateY(30px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.question h2 {
+  color: #03e9f4;
+  font-size: 1.8rem;
+  font-weight: 600;
+  margin-bottom: 8px;
+  position: relative;
+}
+
+.question h2::after {
+  content: '';
+  position: absolute;
+  bottom: -5px;
+  left: 0;
+  width: 50px;
+  height: 3px;
+  background: linear-gradient(90deg, #667eea, #764ba2);
+  border-radius: 2px;
+}
+
+.options {
+  display: grid;
+  gap: 15px;
+  margin: 30px 0;
+}
+
+.option {
+  position: relative;
+  padding: 16px 24px;
+  margin: 10px 0;
+  font-size: 1.1rem;
+  color: white;
+  border: none;
+  border-radius: 12px;
+  background: transparent;
+  cursor: pointer;
+  overflow: hidden;
+  z-index: 1;
+  text-align: center;
+  font-weight: 500;
+  box-shadow: 0 0 12px rgba(255, 255, 255, 0.05);
+}
+
+.option span {
+  position: absolute;
+  display: block;
+}
+
+.option span:nth-child(1) {
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 2px;
+}
+.option span:nth-child(2) {
+  top: 0;
+  right: 0;
+  width: 2px;
+  height: 100%;
+}
+.option span:nth-child(3) {
+  bottom: 0;
+  right: 0;
+  width: 100%;
+  height: 2px;
+}
+.option span:nth-child(4) {
+  bottom: 0;
+  left: 0;
+  width: 2px;
+  height: 100%;
+}
+
+/* Mỗi đáp án một màu neon tĩnh */
+/* Màu neon của từng đáp án */
+.option-1 span { background: #03e9f4; } /* Xanh biển */
+.option-2 span { background: #a78bfa; } /* Tím */
+.option-3 span { background: #f6ad55; } /* Cam */
+.option-4 span { background: #f687b3; } /* Hồng */
+
+/* Hover */
+.option-1:hover {
+  box-shadow: 0 0 12px #03e9f4, 0 0 25px #03e9f4;
+  color: #03e9f4;
+}
+.option-2:hover {
+  box-shadow: 0 0 12px #a78bfa, 0 0 25px #a78bfa;
+  color: #a78bfa;
+}
+.option-3:hover {
+  box-shadow: 0 0 12px #f6ad55, 0 0 25px #f6ad55;
+  color: #f6ad55;
+}
+.option-4:hover {
+  box-shadow: 0 0 12px #f687b3, 0 0 25px #f687b3;
+  color: #f687b3;
+}
+
+/* Khi được chọn */
+.option-1.selected {
+  color: #03e9f4;
+  box-shadow: 0 0 20px #03e9f4;
+}
+.option-2.selected {
+  color: #a78bfa;
+  box-shadow: 0 0 20px #a78bfa;
+}
+.option-3.selected {
+  color: #f6ad55;
+  box-shadow: 0 0 20px #f6ad55;
+}
+.option-4.selected {
+  color: #f687b3;
+  box-shadow: 0 0 20px #f687b3;
+}
+
+
+.option.correct {
+  background: #1e272e;
+  box-shadow: 0 0 20px 5px rgba(0, 255, 200, 0.6);
+}
+
+/* Glowing Submit/Restart Button */
+.glow-button {
+  position: relative;
+  display: inline-block;
+  padding: 18px 40px;
+  color: #03e9f4;
+  font-size: 1.1rem;
+  text-transform: uppercase;
+  background: transparent;
+  border: none;
+  cursor: pointer;
+  overflow: hidden;
+  transition: 0.3s;
+  margin-top: 20px;
+  z-index: 1;
+}
+
+.glow-button:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+
+.glow-button span {
+  position: absolute;
+  display: block;
+}
+
+.glow-button span:nth-child(1) {
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 2px;
+  background: linear-gradient(90deg, transparent, #03e9f4);
+  animation: animate1 1s linear infinite;
+}
+
+.glow-button span:nth-child(2) {
+  top: 0;
+  right: 0;
+  width: 2px;
+  height: 100%;
+  background: linear-gradient(180deg, transparent, #03e9f4);
+  animation: animate2 1s linear infinite;
+  animation-delay: 0.25s;
+}
+
+.glow-button span:nth-child(3) {
+  bottom: 0;
+  right: 0;
+  width: 100%;
+  height: 2px;
+  background: linear-gradient(270deg, transparent, #03e9f4);
+  animation: animate3 1s linear infinite;
+  animation-delay: 0.5s;
+}
+
+.glow-button span:nth-child(4) {
+  bottom: 0;
+  left: 0;
+  width: 2px;
+  height: 100%;
+  background: linear-gradient(360deg, transparent, #03e9f4);
+  animation: animate4 1s linear infinite;
+  animation-delay: 0.75s;
+}
+.neon-button {
+  padding: 16px 32px;
+  font-size: 1.1rem;
+  font-weight: 600;
+  color: #f6ad55;
+  background: transparent;
+  border: 2px solid #f6ad55;
+  border-radius: 12px;
+  cursor: pointer;
+  text-transform: uppercase;
+  transition: 0.3s ease;
+  box-shadow: 0 0 10px #f6ad55, 0 0 20px #f6ad55 inset;
+}
+
+.neon-button:hover {
+  background: rgba(246, 173, 85, 0.1);
+  box-shadow: 0 0 15px #f6ad55, 0 0 30px #f6ad55 inset;
+}
+
+.bubbles {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  z-index: 0;
+  overflow: hidden;
+  pointer-events: none;
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
+.bubbles li {
+  position: absolute;
+  display: block;
+  width: 20px;
+  height: 20px;
+  background: rgba(255, 255, 255, 0.15);
+  bottom: -150px;
+  animation: rise 20s linear infinite;
+  border-radius: 50%;
+}
+
+/* Tùy chỉnh vị trí và kích thước bong bóng */
+.bubbles li:nth-child(1) {
+  left: 10%;
+  width: 40px;
+  height: 40px;
+  animation-duration: 15s;
+}
+.bubbles li:nth-child(2) {
+  left: 20%;
+  width: 20px;
+  height: 20px;
+  animation-duration: 12s;
+  animation-delay: 2s;
+}
+.bubbles li:nth-child(3) {
+  left: 25%;
+  width: 25px;
+  height: 25px;
+  animation-duration: 18s;
+  animation-delay: 4s;
+}
+.bubbles li:nth-child(4) {
+  left: 40%;
+  width: 15px;
+  height: 15px;
+  animation-duration: 20s;
+}
+.bubbles li:nth-child(5) {
+  left: 55%;
+  width: 30px;
+  height: 30px;
+  animation-duration: 10s;
+}
+.bubbles li:nth-child(6) {
+  left: 70%;
+  width: 20px;
+  height: 20px;
+  animation-duration: 17s;
+  animation-delay: 3s;
+}
+.bubbles li:nth-child(7) {
+  left: 80%;
+  width: 50px;
+  height: 50px;
+  animation-duration: 22s;
+  animation-delay: 1s;
+}
+.bubbles li:nth-child(8) {
+  left: 90%;
+  width: 15px;
+  height: 15px;
+  animation-duration: 14s;
+}
+.bubbles li:nth-child(9) {
+  left: 95%;
+  width: 25px;
+  height: 25px;
+  animation-duration: 19s;
+}
+.bubbles li:nth-child(10) {
+  left: 5%;
+  width: 30px;
+  height: 30px;
+  animation-duration: 16s;
+}
+
+.bubbles {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  z-index: 0;
+  overflow: hidden;
+  pointer-events: none;
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
+.bubbles li {
+  position: absolute;
+  display: block;
+  bottom: -100px;
+  border-radius: 50%;
+  animation: rise 20s linear infinite;
+  opacity: 0.6;
+  filter: blur(1px);
+}
+
+/* Màu ngẫu nhiên bằng nth-child */
+.bubbles li:nth-child(5n+1) {
+  background: rgba(255, 99, 132, 0.3);
+  width: 30px; height: 30px; left: 5%;
+  animation-duration: 14s;
+}
+.bubbles li:nth-child(5n+2) {
+  background: rgba(54, 162, 235, 0.3);
+  width: 40px; height: 40px; left: 20%;
+  animation-duration: 18s;
+}
+.bubbles li:nth-child(5n+3) {
+  background: rgba(255, 206, 86, 0.3);
+  width: 20px; height: 20px; left: 40%;
+  animation-duration: 12s;
+}
+.bubbles li:nth-child(5n+4) {
+  background: rgba(75, 192, 192, 0.3);
+  width: 35px; height: 35px; left: 60%;
+  animation-duration: 16s;
+}
+.bubbles li:nth-child(5n) {
+  background: rgba(153, 102, 255, 0.3);
+  width: 25px; height: 25px; left: 80%;
+  animation-duration: 20s;
+}
+
+.quiz-form {
+  background: rgba(30, 0, 30, 0.85); /* nền hồng tím đậm */
+  padding: 30px;
+  border-radius: 16px;
+  box-shadow: 0 0 20px rgba(255, 105, 180, 0.2);
+  border: 1px solid rgba(255, 105, 180, 0.3);
+  margin-bottom: 30px;
+  animation: slideIn 0.5s ease-out;
+}
+
+.form-title {
+  color: #f687b3; /* màu hồng */
+  font-size: 1.5rem;
+  text-align: center;
+  margin-bottom: 20px;
+  border-bottom: 2px solid #f687b3;
+  padding-bottom: 8px;
+}
+
+.form-input {
+  width: 100%;
+  padding: 14px 18px;
+  margin-bottom: 15px;
+  font-size: 1rem;
+  color: white;
+  background: transparent;
+  border: 2px solid #f687b3;
+  border-radius: 12px;
+  outline: none;
+  transition: box-shadow 0.3s ease;
+}
+
+.form-input::placeholder {
+  color: rgba(255, 255, 255, 0.5);
+}
+
+.form-input:focus {
+  box-shadow: 0 0 12px #f687b3;
+  border-color: #f687b3;
+}
+
+/* Hiệu ứng nổi lên */
+@keyframes rise {
+  0% {
+    transform: translateY(0) scale(1);
+    opacity: 0.4;
+  }
+  100% {
+    transform: translateY(-1000px) scale(1.3);
+    opacity: 0;
+  }
+}
+
+
+/* Animation nổi lên */
+@keyframes rise {
+  0% {
+    transform: translateY(0) scale(1);
+    opacity: 0.5;
+  }
+  100% {
+    transform: translateY(-1000px) scale(1.2);
+    opacity: 0;
+  }
+}
+
+@keyframes animate1 {
+  0% { left: -100%; }
+  100% { left: 100%; }
+}
+@keyframes animate2 {
+  0% { top: -100%; }
+  100% { top: 100%; }
+}
+@keyframes animate3 {
+  0% { right: -100%; }
+  100% { right: 100%; }
+}
+@keyframes animate4 {
+  0% { bottom: -100%; }
+  100% { bottom: 100%; }
+}
+@keyframes pulseGlow {
+  0% {
+    box-shadow: 0 0 0px #00ffc3;
+  }
+  50% {
+    box-shadow: 0 0 20px 8px #00ffc3;
+  }
+  100% {
+    box-shadow: 0 0 0px #00ffc3;
+  }
+}
+
+.correct-animate {
+  animation: pulseGlow 1s ease-out 1;
+}
