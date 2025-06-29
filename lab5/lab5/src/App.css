@@ -1,0 +1,25 @@
+body {
+  background-color: #f8f9fa;
+}
+
+.carousel {
+  max-width: 800px;
+  margin: 0 auto;
+}
+
+.news-card {
+  margin-bottom: 20px;
+}
+
+.quiz-question {
+  margin-bottom: 30px;
+}
+
+.quiz-question h4 {
+  margin-bottom: 15px;
+}
+
+.contact-form {
+  max-width: 500px;
+  margin: 0 auto;
+}
